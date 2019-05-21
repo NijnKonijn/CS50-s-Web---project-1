@@ -6,19 +6,19 @@
             // Function to check Whether both passwords
             // is same or not.
             function checkPassword(form) {
-                userPasswordLogIn = form.userPasswordLogIn.value;
-                userPasswordLogIn_1 = form.userPasswordLogIn_1.value;
+                userPassword = form.userPassword.value;
+                userPasswordRepeat = form.userPasswordRepeat.value;
 
                 // If password not entered
-                if (userPasswordLogIn == '')
+                if (userPassword == '')
                     alert ("Please enter Password");
 
                 // If confirm password not entered
-                else if (userPasswordLogIn == '')
+                else if (userPasswordRepeat == '')
                     alert ("Please enter confirm password");
 
                 // If Not same return False.
-                else if (userPasswordLogIn != userPasswordLogIn_1) {
+                else if (userPassword != userPasswordRepeat) {
                     alert ("\nPassword did not match: Please try again...")
                     return false;
                 }
@@ -50,24 +50,53 @@
         <form onSubmit = "return checkPassword(this)">
         <table border = 1 align = "center">
             <tr>
-                <!-- Enter Username -->
+            <tr>
+                                <td>REGISTER</td>
+            </tr>                <!-- Enter Username -->
                 <td>Username:</td>
                 <td><input type="email" value="" name="emailLogIn" placeholder="Email" required> </td>
             </tr>
             <tr>
                 <!-- Enter Password. -->
                 <td>Password:</td>
-                <td><input type = password value="" name="userPasswordLogIn" placeholder="Password" required></td>
+                <td><input type = password value="" name="userPassword" placeholder="Password" required></td>
 
             </tr>
             <tr>
                 <!-- To Confirm Password. -->
                 <td>Confirm Password:</td>
-                <td><input type = password value="" name="userPasswordLogIn_1" placeholder="Password" required></td>
+                <td><input type = password value="" name="userPasswordRepeat" placeholder="Password" required></td>
             </tr>
             <tr>
                 <td colspan = 2 align = right>
                 <input type = submit value = "Submit"></td>
+
+
+            </tr>
+
+
+
+            <tr>
+                                <td>LOGIN</td>
+            </tr>
+            <tr>
+                <!-- Enter Password. -->
+                <td>Password:</td>
+                <td><input type = email value="" name="emailLogIn" placeholder="Email"></td>
+
+            </tr>
+            <tr>
+                <!-- To Confirm Password. -->
+                <td>Confirm Password:</td>
+                <td><input type = password value="" name="userPasswordLogIn" placeholder="Password"></td>
+            </tr>
+            <tr>
+                <td colspan = 2 align = right>
+                <input type = submit value = "Submit"></td>
+
+
+
+
             </tr>
         </table>
         </form>
