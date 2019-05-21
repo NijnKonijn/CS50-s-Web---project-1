@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+
+            // Function to check Whether both passwords
+            // is same or not.
+            function checkPassword(form) {
+                userPasswordLogIn = form.userPasswordLogIn.value;
+                userPasswordLogIn_1 = form.userPasswordLogIn_1.value;
+
+                // If password not entered
+                if (userPasswordLogIn == '')
+                    alert ("Please enter Password");
+
+                // If confirm password not entered
+                else if (userPasswordLogIn == '')
+                    alert ("Please enter confirm password");
+
+                // If Not same return False.
+                else if (userPasswordLogIn != userPasswordLogIn_1) {
+                    alert ("\nPassword did not match: Please try again...")
+                    return false;
+                }
+
+                // If same return True.
+                else{
+                    alert("Password Match: Welcome to GeeksforGeeks!")
+                    return true;
+                }
+            }
+        </script>
+        <style>
+            .gfg {
+                font-size:40px;
+                color:green;
+                font-weight:bold;
+                text-align:center;
+            }
+            .geeks {
+                font-size:17px;
+                text-align:center;
+                margin-bottom:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "gfg">Project 1</div>
+        <div class = "geeks">   <a href="https://www.geeksforgeeks.org/password-matching-using-javascript/"> password-matching-using-javascript see Geeks for Geeks website</a></div>
+        <form onSubmit = "return checkPassword(this)">
+        <table border = 1 align = "center">
+            <tr>
+                <!-- Enter Username -->
+                <td>Username:</td>
+                <td><input type="email" value="" name="emailLogIn" placeholder="Email" required> </td>
+            </tr>
+            <tr>
+                <!-- Enter Password. -->
+                <td>Password:</td>
+                <td><input type = password value="" name="userPasswordLogIn" placeholder="Password" required></td>
+
+            </tr>
+            <tr>
+                <!-- To Confirm Password. -->
+                <td>Confirm Password:</td>
+                <td><input type = password value="" name="userPasswordLogIn_1" placeholder="Password" required></td>
+            </tr>
+            <tr>
+                <td colspan = 2 align = right>
+                <input type = submit value = "Submit"></td>
+            </tr>
+        </table>
+        </form>
+    </body>
+</html>

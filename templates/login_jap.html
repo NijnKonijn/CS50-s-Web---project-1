@@ -1,0 +1,46 @@
+  <title>PC Login</title>
+
+<center>
+<img src="https://myslu.slu.edu/res/images/cas-padlock-icon.png"  width="200" height="200">
+</center>
+
+
+<link rel="stylesheet" href="http://auto.paychecks.nl/static/css/style.css" type="text/css">
+{% block body %}
+
+
+<form action="/login" method="POST">
+<div class="login">
+<div class="login-screen">
+<div class="app-title">
+<h1>Login</h1>
+</div>
+<div class="login-form">
+<div class="control-group">
+
+                <input type="email" class='login-field'  value="" name="emailLogIn" placeholder="Email" required>
+                <label class="login-field-icon fui-user" for="login-name"></label></div>
+
+    <div class="control-group">
+                <input type="password" class="login-field"  value="" name="userPasswordLogIn" placeholder="Password" required>
+                <label class="login-field-icon fui-lock" for="login-pass"></label></div>
+
+<input type="submit" value="Log in" class="btn btn-primary btn-large btn-block">
+
+</div>
+</div>
+</div>
+</form>
+<center>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+</center>
+
+{% endblock %}

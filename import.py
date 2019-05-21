@@ -10,7 +10,10 @@ if not os.getenv("DATABASE_URL"):
 engine= create_engine(os.getenv("DATABASE_URL"))
 db =scoped_session(sessionmaker(bind=engine))
 
+
 def main():
+    x = 1
+
     db.execute("CREATE TABLE users (id SERIAL PRIMARY KEY, username VARCHAR NOT NULL, password VARCHAR NOT NULL)")
     db.execute("CREATE TABLE reviews (isbn VARCHAR NOT NULL,review VARCHAR NOT NULL, rating INTEGER NOT NULL,username VARCHAR NOT NULL)")
     db.execute("CREATE TABLE books (isbn VARCHAR PRIMARY KEY,title VARCHAR NOT NULL,author VARCHAR NOT NULL,year VARCHAR NOT NULL)")
@@ -21,6 +24,8 @@ def main():
             print('skipped first line')
         else:    
             db.execute("INSERT INTO books (isbn, title, author, year) VALUES (:a,:b,:c,:d)",{"a":isbn,"b":title,"c":author,"d":year})
+            print(x)
+            x = x +1
         
     print("done")            
     db.commit()    

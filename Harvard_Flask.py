@@ -28,4 +28,8 @@ def index():
     return "Project 1: TODO"
 
 
+if __name__ == '__main__':
+    app.run(debug = True)
+
+
 
