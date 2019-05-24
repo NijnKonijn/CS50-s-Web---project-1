@@ -43,4 +43,7 @@ def importeer():
             print(book_count)
             book_count = book_count + 1
 
+    db.commit()
+
+
 importeer()
