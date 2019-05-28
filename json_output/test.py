@@ -10,6 +10,7 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from datetime import datetime
 
 
 
@@ -30,16 +31,26 @@ while x < len(res):
     year = res[x].get("year")
     # print(isbn, title, author, year)
 
+    now = datetime.now()
+    datumtijd = now.replace(microsecond=0)
 
+    alleen_datum = datetime.today().strftime('%Y-%m-%d')
+    logboeknaam = (alleen_datum + " Pay-Check Logboek.csv")
+
+
+    werkgeversnaam = "Voorbeeld werkgever B.V. "
+    email_onderwerp = (werkgeversnaam + alleen_datum + " Pay-Check Logboek")
 
     x = x +1
 
     temp_dict = {
+        "datumtijd": datumtijd,
         "isbn": isbn,
         "title": title,
         "author": author,
         "year": year
     }
+
 
 
 
@@ -51,9 +62,11 @@ while x < len(res):
 #     print("Er is iets mis rond:", temp_dict)
 
     import csv
-    row = [isbn, title, author, year]
+    row = [datumtijd, isbn, title, author, year]
 
-    with open('people1.csv', 'a', newline='') as csvFile:
+
+
+    with open(logboeknaam, 'a', newline='') as csvFile:
         writer = csv.writer(csvFile)
         writer.writerow(row)
 
@@ -69,26 +82,59 @@ print(niet_gelukt)
 
 
 
+### Email ###
+
+text_email = """
+Beste Collega,
+
+Rapport gegenereerd uit verwerking door api, zie bijlage.
+
+Met vriendelijke groet,
+
+Server 0.2
+"""
 
 
+subject = email_onderwerp
+body = text_email
+sender_email = "jasperakkerman@gmail.com"
+receiver_email = "loonadministratie@pay-check.nl"
+password = "pbdyjaiflkgkhpkw"
 
+# Create a multipart message and set headers
+message = MIMEMultipart()
+message["From"] = sender_email
+message["To"] = receiver_email
+message["Subject"] = subject
+message["Bcc"] = receiver_email  # Recommended for mass emails
 
+# Add body to email
+message.attach(MIMEText(body, "plain"))
 
+filename = logboeknaam  # In same directory as script
 
+# Open PDF file in binary mode
+with open(filename, "rb") as attachment:
+    # Add file as application/octet-stream
+    # Email client can usually download this automatically as attachment
+    part = MIMEBase("application", "octet-stream")
+    part.set_payload(attachment.read())
 
-# with open('document.csv', 'a') as fd:
-#     fd.write(isbn, title, author, year)
+# Encode file in ASCII characters to send by email
+encoders.encode_base64(part)
 
+# Add header as key/value pair to attachment part
+part.add_header(
+    "Content-Disposition",
+    f"attachment; filename= {filename}",
+)
 
+# Add attachment to message and convert message to string
+message.attach(part)
+text = message.as_string()
 
-# # write to csv
-# import csv
-# import pandas
-#
-# df = pandas.DataFrame(data={"col1": ja_mail, "col2": nee_mail})
-#
-#
-# # df = pandas.DataFrame(data={"col1": ja_mail, "col2": nee_mail})
-# # df = pandas.DataFrame(data=ja_mail)
-#
-# df.to_csv("./file.csv", sep=',',index=False)
+# Log in to server using secure context and send email
+context = ssl.create_default_context()
+with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+    server.login(sender_email, password)
+    server.sendmail(sender_email, receiver_email, text)
