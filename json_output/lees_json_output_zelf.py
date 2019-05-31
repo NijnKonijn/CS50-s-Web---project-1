@@ -7,7 +7,7 @@ import json
 
 
 res = requests.get("http://api.paychecks.nl/booksjsontest")
-res
+
 x = {
     "title": res.title,
     "author": res.author,
